@@ -21,28 +21,45 @@ int strcmp(char* str1,char* str2)
     return res;
 }
 
-void strcat(char* str1,char* str2){
-    char result[40];
+int LastIndexOf(char* str,char search)
+{
+    int index = -1;
     int i=0;
-    int j=0;
-    int k=0;
-    while(true){
-        if(j<strlen(str1)){
-            result[i] = str1[j];
-            j++;
-            i++;
-        }else if(k < strlen(str2)) {
-            result[i] = str1[k];
-            k++;
-            i++;
-        }else{
-            result[i] = '\0';
-            break;
+    while(*str){
+        if(*str == search){
+            index = i;
         }
+        str++;
+        i++;
     }
+    return index;
+}
 
-    str1=result;
+int indexOf(char* str,char search)
+{
+    int index = -1;
+    int i=0;
+    while(*str){
+        if(*str == search){
+            return i;
+        }
+        str++;
+        i++;
+    }
+    return index;
+}
 
+void strcat(char* dest,char* src){
+   
+    while(*dest){
+        dest++;
+    }
+    while(*src){
+        *dest = *src;
+        dest++;
+        src++;
+    }
+    *dest = '\0';
    
 }
 
@@ -58,10 +75,10 @@ int main(int argc, char const *argv[])
      printf("enter a string");
     // scanf("%s",demostring);
     fgets(anotherstring,20,stdin);
-    printf("%d\n",strlen(demostring));
-    printf("%d\n",strcmp(demostring,anotherstring));
-    strcat(demostring,anotherstring);
-    printf("%s",demostring);
+    // printf("%d\n",strlen(demostring));
+    // printf("%d\n",strcmp(demostring,anotherstring));
+    // strcat(demostring,anotherstring);
+    printf("%d",indexOf(demostring,'A'));
 
     return 0;
 }
