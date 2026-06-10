@@ -1,9 +1,25 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 
 class Syllabus{
     public:
-    string topic[10];
+    vector<string> topics;
+};
+
+class Subject{
+
+    int id;
+    string name;
+   
+
+    public:
+     Syllabus syllabus;
+     Subject(int id,string name){
+         this->id = id;
+         this->name = name;
+    }
+
 };
 
 
@@ -12,11 +28,14 @@ class Course{
     
     public:
     string name;
-    Syllabus* content;
+    vector<Subject*> subjects;
 
     Course(int id,string name){
          this->id = id;
          this->name = name;
+    }
+    int getId(){
+        return id;
     }
 };
 
@@ -46,13 +65,45 @@ class Student{
 
 };
 
+class CourseManager{
+   
+    vector<Course> courselist; 
+
+    public:
+    void CreateNewCourse(){
+        string name;
+        cout<<"enter course name:";
+        cin>>name;
+        Course* course = new Course(courselist.size()+1,name);
+        cout<< "to save course you must add atleast one subject to it"<<endl;
+        cout<<"enter subject name:";
+        cin>> name;
+        Subject* subject =new Subject(course->subjects.size()+1,name);
+        cout<< "to save subject you must add atleast one topic to it"<<endl;
+        cout<<"enter topic name:";
+        cin>> name;
+        subject->syllabus.topics.push_back(name);
+        course->subjects.push_back(subject);
+    }
+
+    void printCourseDetails(int id){
+        for(auto itr=courselist.begin();itr != courselist.end();itr++)
+        {
+            if(itr->getId() == id){
+                cout<< "name of course :"<<itr->name;
+                // for(Subject* sitr=itr->subjects.begin();sitr != itr->subjects.end();sitr++)
+                // {
+                //     cout<<sitr->syllabus
+                // }
+            }
+        }
+    }
+};
+
 int main(int argc, char const *argv[])
 {
-   Course* c1 = new Course(100,"C++");
-   Student* s1 = new Student(1010,"Ananta");
-   s1->mycourse = c1;
-   cout<< "roll no:"<<s1->getRollNo()<< "name:"<<s1->getName()<<endl;
-   cout<< "Course :"<< s1->mycourse->name;
+   // create new course
+  
 
     return 0;
 }
